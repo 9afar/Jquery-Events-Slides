@@ -1,0 +1,376 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Events</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" href="css/reveal.css">
+    <link rel="stylesheet" href="css/theme/sky.css" id="theme">
+    <link rel="stylesheet" href="css/prism.css">
+    <style>
+        .SnowFont {
+            font-size: 5em !important;
+            letter-spacing: 0 !important;
+            font-family: "Montserrat", sans-serif !important;
+            text-shadow: 0 1px 0 #ccc, 0 2px 0 #c9c9c9, 0 3px 0 #bbb, 0 4px 0 #b9b9b9, 0 5px 0 #aaa, 0 6px 1px rgba(0, 0, 0, 0.1), 0 0 5px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.3), 0 3px 5px rgba(0, 0, 0, 0.2), 0 5px 10px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.2), 0 20px 20px rgba(0, 0, 0, 0.15) !important;
+        }
+    </style>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+            <section data-background="img/amman.jpg">
+                <img src="img/JQuery_logo.png" style="margin-bottom:30px;" />
+                <h2 style="color:#fff" class="SnowFont">Events</h2>
+                <p>
+                    <small style="color:#fff;text-shadow:2px 2px 8px #0868AC;">
+                        BY
+                        <br />
+                        Mohammed Alsaffar
+                        <br />
+                        <a style="color:#fff" href="mailto:m.9afar@gmail.com">m.9afar@gmail.com</a>
+                    </small>
+                </p>
+            </section>
+            <section>
+                <h2>Table Of Contents</h2>
+                <br />
+                <ul>
+                    <li><a href="#/Basics">HTML Event Basics</a></li>
+                    <li><a href="#/jfun">jQuery Functions</a></li>
+                </ul>
+            </section>
+
+            <section id="Basics">
+                <section>
+                    <h2>HTML Event Basics</h2>
+                    <h3>1 - Capturing & Bubbling</h3>
+                    <p>
+                        <b>Capturing : </b> The event travles down from the root node to the children
+                        <pre><code class="language-javascript">
+    element.addEventListener('click',doSomething,true);
+					    </code></pre>
+                        <br />
+                        <b>Bubbling : </b> The event bubbles up from the children to the root node
+                        <pre><code class="language-javascript">
+    element.addEventListener('click',doSomething,false);
+					    </code></pre>
+                    </p>
+                </section>
+                <section>
+                    <h2>HTML Event Basics</h2>
+                    <h3>1 - Capturing & Bubbling</h3>
+                    <b>Capturing Example</b>
+                    <br />
+                    <button id="BasicsButton" style="font-size:22px">Click me...</button>
+                    <div>
+                        <script id="CapturingExampleCode"></script>
+                    </div>
+
+                    <pre><code contenteditable spellcheck="false" class="language-javascript run" data-target="#CapturingExampleCode">
+    var button = document.getElementById('BasicsButton');
+                         
+    button.addEventListener('click',function(){
+        alert("Button"); 
+    },true);
+                         
+    button.parentNode.addEventListener('click',function(){
+        alert("Parent");     
+    },true);
+                    </code></pre>
+                </section>
+                <section>
+                    <h2>HTML Event Basics</h2>
+                    <h3>1 - Capturing & Bubbling</h3>
+                    <b>Bubbling Example</b>
+                    <br />
+                    <button id="BasicsButton2" style="font-size:22px">Click me...</button>
+                    <div>
+                        <script id="BubblingExampleCode"></script>
+                    </div>
+
+                    <pre><code contenteditable spellcheck="false" class="language-javascript run" data-target="#BubblingExampleCode">
+    var button2 = document.getElementById('BasicsButton2');       
+                                           
+    button2.addEventListener('click',function(){
+        alert("Button"); 
+    },false);
+                         
+    button2.parentNode.addEventListener('click',function(){
+        alert("Parent");     
+    },false);
+                    </code></pre>
+                </section>
+                <section>
+                    <h2>HTML Event Basics</h2>
+                    <h3>Event Control</h3>
+                    <code class="language-javascript">.preventDefault()</code>
+                    <p>
+                        If this method is called, the default action of the event will not be triggered.
+                    </p>
+                    <a href="http://google.com" id="BasicsButton3" style="font-size:22px">Click me...</a>
+                    <div>
+                        <script id="preventDefaultCode"></script>
+                    </div>
+                    <pre><code contenteditable spellcheck="false" class="language-javascript run" data-target="#preventDefaultCode">                                               
+    var button3 = document.getElementById('BasicsButton3');
+    button3.addEventListener('click',button3Clicked, false);
+                         
+    function button3Clicked(e){
+        alert("Link Clicked");
+        e.preventDefault();
+    }
+                    </code></pre>
+                </section>
+                <section>
+                    <h2>HTML Event Basics</h2>
+                    <h3>Event Control</h3>
+                    <code class="language-javascript">.stopPropagation()</code>
+                    <p>
+                        Prevents the event from bubbling up the DOM tree.
+                    </p>
+                    <button id="BasicsButton4" style="font-size:22px">Click me...</button>
+                    <div>
+                        <script id="stopPropagationCode"></script>
+                    </div>
+                    <pre><code contenteditable spellcheck="false" class="language-javascript run" data-target="#stopPropagationCode">                                               
+    var button4 = document.getElementById('BasicsButton4');
+    button4.addEventListener('click',button4Clicked, false);
+    button4.parentNode.addEventListener('click',button4ClickedParent, false);
+                         
+    function button4Clicked(e){
+        alert("Button Clicked");
+        e.stopPropagation();
+    }
+                         
+    function button4ClickedParent(e){
+        alert("Button Clicked In Parent");
+    }
+                    </code></pre>
+                </section>
+                <section>
+                    <h2>HTML Event Basics</h2>
+                    <h3>Event Control</h3>
+                    <code class="language-javascript">.stopImmediatePropagation()</code>
+                    <p>
+                        Keeps the rest of the handlers from being executed and prevents the event from bubbling up the DOM tree.
+                    </p>
+                    <button id="BasicsButton5" style="font-size:22px">Click me...</button>
+                    <div>
+                        <script id="stopImmediatePropagationCode"></script>
+                    </div>
+                    <pre><code contenteditable spellcheck="false" class="language-javascript run" data-target="#stopImmediatePropagationCode">                                               
+    var button5 = document.getElementById('BasicsButton5');
+    button5.addEventListener('click',button5Clicked, false);
+    button5.addEventListener('click',button5Clicked2, false);
+                         
+    function button5Clicked(e){
+        alert("Button Clicked 1");
+        e.stopImmediatePropagation();
+    }
+                         
+    function button5Clicked2(e){
+        alert("Button Clicked 2");
+    }
+                    </code></pre>
+                </section>
+            </section>
+
+            <section id="jfun">
+                <section>
+                    <h2>jQuery Functions</h2>
+                    <br /><br />
+                    <div class="warning">
+                        jQuery uses bubbling for events by default.
+                    </div>
+                </section>
+
+                <section>
+                    <h2>jQuery Functions</h2>
+                    <code class="language-javascript">.on()</code>
+                    <p>Attach an event handler function for one or more events to the selected elements.</p>
+                    <style>
+                        .red {
+                            background-color: red;
+                        }
+                    </style>
+                    <button id="jfunButton1" style="font-size:22px">Click me...</button>
+                    <div>
+                        <script id="onCode"></script>
+                    </div>
+                    <pre><code contenteditable spellcheck="false" class="language-javascript run" data-target="#onCode">                                               
+    $('#jfunButton1').on('click',function(e){
+        $(this).toggleClass('red');
+    });
+                    </code></pre>
+                </section>
+
+                <section>
+                    <h2>jQuery Functions</h2>
+                    <code class="language-javascript">.off()</code>
+                    <p>Remove an event handler.</p>
+                    <style>
+                        .blue {
+                            background-color: blue;
+                        }
+                    </style>
+                    <button id="jfunButton2" style="font-size:22px">Click me...</button>
+                    <div>
+                        <script id="offCode"></script>
+                    </div>
+                    <pre><code contenteditable spellcheck="false" class="language-javascript run" data-target="#offCode">                                               
+    $('#jfunButton2').on('click',function(e){
+        $(this).toggleClass('blue');
+    });
+                         
+    $('#jfunButton2').off('click');
+                    </code></pre>
+                </section>
+
+                <section>
+                    <h2>jQuery Functions</h2>
+                    <code class="language-javascript">.one()</code>
+                    <p>Attach a handler to an event for the elements. The handler is executed at most once per element per event type.</p>
+                    <style>
+                        .green {
+                            background-color: green;
+                        }
+                    </style>
+                    <button id="jfunButton3" style="font-size:22px">Click me...</button>
+                    <div>
+                        <script id="oneCode"></script>
+                    </div>
+                    <pre><code contenteditable spellcheck="false" class="language-javascript run" data-target="#oneCode">                                               
+    $('#jfunButton3').one('click',function(e){
+        $(this).toggleClass('green');
+    });
+                    </code></pre>
+                </section>
+
+                <section>
+                    <h2>jQuery Functions</h2>
+                    <code class="language-javascript">.submit()</code>
+                    <p>Bind an event handler to the "submit" JavaScript event, or trigger that event on an element.</p>
+                    <form method="get" action="http://www.google.jo" id="GoogleForm">
+                        <input name="q" id="GoogleInput" style="font-size: 22px;" />
+                        <input type="submit" style="font-size: 22px;" />
+                    </form>
+                    <div>
+                        <script id="googleCode"></script>
+                    </div>
+                    <pre><code contenteditable spellcheck="false" class="language-javascript run" data-target="#googleCode">                                               
+    $('#GoogleInput').on('input',function(){
+        if($(this).val() == 'lol'){
+            $('#GoogleForm').submit();
+        }
+    });
+                         
+    $('#GoogleForm').submit(function(){
+        $('#GoogleInput').val('Google');
+    });
+                    </code></pre>
+                </section>
+
+            </section>
+
+            <section id="Resources">
+                <h2>Resources</h2>
+                <ol>
+                    <li><a href="http://api.jquery.com/category/events/">jQuery API Events</a></li>
+                    <li><a href="http://www.quirksmode.org/js/events_order.html">Capturing & Bubbling</a></li>
+                </ol>
+            </section>
+            <section>
+                <h1>THE END</h1>
+            </section>
+        </div>
+    </div>
+    <div style="overflow:hidden;position:fixed;top:0;left:0;right:0;bottom:0;" id="snow">
+    </div>
+    <script src="js/jquery-2.1.1.min.js"></script>
+    <script src="js/head.min.js"></script>
+    <script src="js/reveal.min.js"></script>
+    <script src="js/sketch.min.js"></script>
+    <script src="js/snow.js"></script>
+    <script src="js/prism.js"></script>
+    <script>
+        var DemoEvents = [];
+        var original_addEventListener = Element.prototype.addEventListener;
+        function new_addEventListener(event, listener, useCapture) {
+            DemoEvents.push({ e: this, a: arguments });
+            original_addEventListener.apply(this, arguments);
+        }
+
+        var Snowing = false;
+        Reveal.initialize({
+            controls: true,
+            progress: true,
+            history: true,
+            center: true,
+            overview: false
+        });
+
+        Reveal.addEventListener('ready', RunCode);
+        Reveal.addEventListener('slidechanged', RunCode, false);
+
+        $('code').each(function (i, e) {
+            var code = $(e).html();
+            $(e).html(code.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'))
+        });
+
+        function RunCode() {
+            $(Reveal.getPreviousSlide()).find('code.run').each(function (i, e) {
+                e = $(e);
+                $(e.data('target')).html('');
+            });
+            var indices = Reveal.getIndices();
+            if (indices.h == 0) {
+                CreateSnow();
+                Snowing = true;
+            } else {
+                if (Snowing) {
+                    DestroySnow();
+                    Snowing = false;
+                }
+            }
+            var slide = Reveal.getSlide(indices.h, indices.v);
+            $(slide).find('code.run').each(RefreshCode);
+        }
+
+        var codeRunTimer;
+        $('code.run').on('input', function () {
+            clearTimeout(codeRunTimer);
+            var _this = this;
+            codeRunTimer = setTimeout(function () {
+                $(_this).each(RefreshCode);
+            }, 500);
+        });
+
+        $('code.run').on('blur', function () {
+            Prism.highlightElement(this);
+        });
+
+        function RefreshCode(i, e) {
+            ClearEvents();
+            e = $(e);
+            var target = $(e.data('target'));
+            var parent = target.parent();
+            Element.prototype.addEventListener = new_addEventListener;
+            target.remove();
+            target.html(e.text());
+            parent.append(target);
+            Element.prototype.addEventListener = original_addEventListener;
+        }
+
+        function ClearEvents() {
+            DemoEvents.forEach(function (o) {
+                $(o.e).off();
+                o.e.removeEventListener(o.a[0], o.a[1], o.a[2]);
+            });
+            DemoEvents = [];
+        }
+    </script>
+</body>
+</html>
